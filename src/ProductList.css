@@ -172,6 +172,11 @@ body {
     font-size: 29px;
 
 }
+.category{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .plantname_heading{
    display: flex;
    align-items: center;
