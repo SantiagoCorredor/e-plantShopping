@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice'; // Ajustar la ruta si es necesario
 import './CartItem.css';
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = ({   onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
@@ -30,6 +30,7 @@ const CartItem = ({ onContinueShopping }) => {
   const handleRemove = (item) => {
     dispatch(removeItem(item.name));
   };
+  
 
   // Calcula el costo total basado en la cantidad de un ítem
   const calculateTotalCost = (item) => {
@@ -38,10 +39,12 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Continuar comprando (volviendo al listado de productos)
   const handleContinueShopping = (e) => {
-    e.preventDefault();
-    onContinueShopping(); // Llamar a la función pasada desde el componente padre
+    if (e) {
+      e.preventDefault(); // Solo si se recibe el evento
+    }
+    onContinueShopping(); // Llamada a la función pasada como prop
   };
-
+  
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount().toFixed(2)}</h2>
@@ -81,7 +84,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className="total_cart_amount"></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={handleContinueShopping}>
+        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>
           Continue Shopping
         </button>
         <br />
