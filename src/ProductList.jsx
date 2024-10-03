@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from './cartSlice';
+import { addItem, removeItem } from './cartSlice';
 import './ProductList.css'
 import CartItem from './CartItem';
 
@@ -260,13 +260,13 @@ function ProductList() {
        [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
      }));
   };
-  //*const handleRemoveFromCart = (product) => {
-  //  dispatch(removeItem(product)); // Dispatch para eliminar del carrito
-  //  setAddedToCart((prevState) => ({
-  //    ...prevState,
-  //    [product.name]: false, // Cambia a false para indicar que ya no está en el carrito
-  //  }));
-  //};
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeItem(product)); // Dispatch para eliminar del carrito
+    setAddedToCart((prevState) => ({
+      ...prevState,
+      [product.name]: false, // Cambia a false para indicar que ya no está en el carrito
+    }));
+  };
   
 
 
@@ -308,9 +308,9 @@ function ProductList() {
                         className={`product-button ${addedToCart[plant.name] ? 'added-to-cart' : ''}`} 
                         onClick={() => {
                             if (addedToCart[plant.name]) {
-                                //handleRemoveFromCart(plant);
+                            handleRemoveFromCart(plant);
                             } else {
-                                handleAddToCart(plant);
+                            handleAddToCart(plant);
                             }
                         }}>
                         {addedToCart[plant.name] ? 'Added to cart' : 'Add to cart'}
